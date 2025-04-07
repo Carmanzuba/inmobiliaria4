@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agendar Visita | Inmuebles</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #1f3b57;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #1f3b57;
+      color: white;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #305d7d;
+    }
+
+    .confirmation {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: #e6f4ea;
+      color: #256029;
+      border: 1px solid #a7d7c5;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Agenda tu visita hoy mismo</h1>
+    <p style="margin: 0.5rem 0 0;">Explora tu nuevo hogar con nosotros</p>
+  </header>
+
+  <div class="container">
+    <form id="agendaForm">
+      <label for="propertyType">Tipo de propiedad</label>
+      <select id="propertyType" required>
+        <option value="">Selecciona una opción</option>
+        <option value="Apartamento">Apartamento</option>
+        <option value="Casa habitación">Casa habitación</option>
+        <option value="Oficina">Oficina</option>
+      </select>
+
+      <label for="date">Fecha de la visita</label>
+      <input type="date" id="date" required min="<?= date('Y-m-d'); ?>" />
+
+      <label for="time">Hora disponible</label>
+      <select id="time" required>
+        <option value="">Selecciona un horario</option>
+        <option value="09:00">09:00 AM</option>
+        <option value="11:00">11:00 AM</option>
+        <option value="14:00">02:00 PM</option>
+        <option value="16:00">04:00 PM</option>
+        <option value="18:00">06:00 PM</option>
+      </select>
+
+      <button type="submit">Agendar Visita</button>
+
+      <div class="confirmation" id="confirmationMessage">
+        ✅ ¡Tu visita ha sido agendada con éxito!<br>
+        Nos comunicaremos contigo para confirmar los detalles.
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("agendaForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const tipo = document.getElementById("propertyType").value;
+      const fecha = document.getElementById("date").value;
+      const hora = document.getElementById("time").value;
+
+      if (tipo && fecha && hora) {
+        const msg = document.getElementById("confirmationMessage");
+        msg.style.display = "block";
+        msg.innerHTML = `✅ Tu visita a una <strong>${tipo}</strong> ha sido agendada para el <strong>${fecha}</strong> a las <strong>${hora}</strong>. <br> Te esperamos para ayudarte a tomar la mejor decisión.`;
+        this.reset();
+      }
+    });
+  </script>
+</body>
+</html>
